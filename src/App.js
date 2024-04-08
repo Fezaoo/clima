@@ -6,9 +6,9 @@ import snow_icon from './Assets/snow.png'
 import clear_icon from './Assets/clear.png'
 import cloud_icon from './Assets/cloud.png'
 import drizzle_icon from './Assets/drizzle.png'
-import humidity_icon from './Assets/humidity.png'
 import rain_icon from './Assets/rain.png'
 import wind_icon from './Assets/wind.png'
+import humidity_icon from './Assets/humidity.png'
 
 
 function App() {
@@ -72,8 +72,22 @@ function App() {
             >
               {info.name}
             </div>
-            <div className='watherHumidity'></div>
-            <div className='watherWind'></div>
+            <section className='weatherAttributes'>
+              <div className='weatherAttributeContainer'>
+                <img src={humidity_icon} className='weatherAttributeIcon' alt='humidity icon'/>
+                <div className='weatherAttributeData'>  
+                  <h3 className='weatherAttributePercentage'>{info.main.humidity} %</h3>
+                  <p className='weatherAttributeSubtitle'>Humidity</p>
+                </div>
+              </div>
+              <div className='weatherAttributeContainer'>
+              <img src={wind_icon} className='weatherAttributeIcon' alt='Wind icon'/>
+                <div className='weatherAttributeData'>
+                  <h3 className='weatherPercentage'>{Math.floor(info.wind.speed)} km/h</h3>
+                  <p className='weatherAttributeSubtitle'>Wind Speed</p>
+                </div>
+              </div>
+            </section>
           </main>
         )
         }

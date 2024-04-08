@@ -63,11 +63,38 @@
     margin-top: 15px;
 }
 .weatherStatusIcon{
-    width: 45%;
+    width: 40%;
 }
 .weatherTemperature{
     font-size: 60px;
 }
 .weatherLocation{
     font-size: 30px;
+}
+.weatherAttributes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    height: 80px;
+    gap: 30px;
+}
+.weatherAttributeContainer{
+    margin: auto;
+    display: flex;
+    align-items: flex-start;
+}
+.weatherAttributeIcon{
+    width: 25px;
+    margin: 0 10px;
+}
+.weatherAttributeData{
+    margin-top: 0px;
+}
+
+.weatherAttributeSubtitle{
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.774);
 }
