@@ -16,39 +16,38 @@ function App() {
   const [info, setInfo] = useState('')
   const [weather_icon, setweather_icon] = useState(cloud_icon)
 
+  // Kelvin to Celsius
   function convert (a) {
     return Math.floor(a - 273.15)
   }
 
   const search = async () => {
-
+    
     if (input === '') {
-      alert('Preencha algum cep')
+      alert('Search a valid location')
       return
     }
+    // API request
     try {
       var response = await api.get(`weather?q=${input}&appid=8690c0d1a638967660a3539ad9d30d92`)
       console.log(response.data)
-      console.log(response.data.name)
       setInfo(response.data)
+      // Weather Status to show icon 
       const weather_status = response.data.weather[0].main
       if (weather_status === 'Cloud') {setweather_icon(cloud_icon)}
       else if (weather_status === 'Rain') {setweather_icon(rain_icon)}
       else if (weather_status === 'Drizzle') {setweather_icon(drizzle_icon)}
       else if (weather_status === 'Snow') {setweather_icon(snow_icon)}
       else if (weather_status === 'Clear') {setweather_icon(clear_icon)}
-      console.log(weather_status)
     }
     catch (error) {
-      alert("Ops erro ao buscar")
-      console.error('O seguinte erro ocorreu: ', error)
+      alert("Ops error while searching")
+      console.error('The following error ocurred: ', error)
     }
   }
   return (
     <div className="App">
       <div className='container'>
-
-
         <header className='header'>
           <div className='searchHeader'>
             <input
