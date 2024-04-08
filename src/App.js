@@ -14,6 +14,7 @@ import humidity_icon from './Assets/humidity.png'
 function App() {
   const [input, setInput] = useState('')
   const [info, setInfo] = useState('')
+  const [weather_icon, setweather_icon] = useState(cloud_icon)
 
   function convert (a) {
     return Math.floor(a - 273.15)
@@ -28,19 +29,19 @@ function App() {
     try {
       var response = await api.get(`weather?q=${input}&appid=8690c0d1a638967660a3539ad9d30d92`)
       console.log(response.data)
-      setInfo(response.data)
-      /*
-      const location = document.getElementsByClassName("weatherLocation")
-      const temperature = document.getElementsByClassName("wheaterTemperature")
-      const humidity  = document.getElementsByClassName("weatherHumidity")
-      const wind = document.getElementsByClassName("weatherWind")
-      location.innerText = response.data.name
-      */
       console.log(response.data.name)
+      setInfo(response.data)
+      const weather_status = response.data.weather[0].main
+      if (weather_status === 'Cloud') {setweather_icon(cloud_icon)}
+      else if (weather_status === 'Rain') {setweather_icon(rain_icon)}
+      else if (weather_status === 'Drizzle') {setweather_icon(drizzle_icon)}
+      else if (weather_status === 'Snow') {setweather_icon(snow_icon)}
+      else if (weather_status === 'Clear') {setweather_icon(clear_icon)}
+      console.log(weather_status)
     }
-    catch {
+    catch (error) {
       alert("Ops erro ao buscar")
-      console.log(Error)
+      console.error('O seguinte erro ocorreu: ', error)
     }
   }
   return (
@@ -63,7 +64,7 @@ function App() {
         {Object.keys(info).length > 0 && (
           <main className='appDisplay'>
             <div className='weatherStatus'>
-              <img src={cloud_icon} className='weatherStatusIcon' alt='Default'></img>
+              <img src={weather_icon} className='weatherStatusIcon' alt='Default'/>
             </div>
             <div className='weatherTemperature'>
             {convert(info.main.temp)}°
