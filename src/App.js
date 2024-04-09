@@ -9,16 +9,21 @@ import drizzle_icon from './Assets/drizzle.png'
 import rain_icon from './Assets/rain.png'
 import wind_icon from './Assets/wind.png'
 import humidity_icon from './Assets/humidity.png'
+import interrogation_icon from './Assets/weather-interrogation.png'
 
 
 function App() {
   const [input, setInput] = useState('')
   const [info, setInfo] = useState('')
-  const [weather_icon, setweather_icon] = useState(cloud_icon)
+  const [weather_icon, setweather_icon] = useState(interrogation_icon)
 
   // Kelvin to Celsius
-  function convert (a) {
+  function convert_temp (a) {
     return Math.floor(a - 273.15)
+  }
+
+  function convert_wind (a) {
+    return Math.floor(a * 3.6)
   }
 
   const search = async () => {
@@ -31,6 +36,7 @@ function App() {
     try {
       var response = await api.get(`weather?q=${input}&appid=8690c0d1a638967660a3539ad9d30d92`)
       console.log(response.data)
+      console.log(response)
       setInfo(response.data)
       // Weather Status to show icon 
       const weather_status = response.data.weather[0].main
@@ -53,7 +59,9 @@ function App() {
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className='searchInput' placeholder='London'></input>
+              className='searchInput' placeholder='London'
+              onKeyDown={(e) => {if (e.key === 'Enter') {search()}}}
+              ></input>
             <button className='searchButton'
               onClick={search}>
               <FiSearch size={14} color='#909090' />
@@ -66,7 +74,7 @@ function App() {
               <img src={weather_icon} className='weatherStatusIcon' alt='Default'/>
             </div>
             <div className='weatherTemperature'>
-            {convert(info.main.temp)}°
+            {convert_temp(info.main.temp)}°
             </div>
             <div className='weatherLocation'
             >
@@ -83,7 +91,7 @@ function App() {
               <div className='weatherAttributeContainer'>
               <img src={wind_icon} className='weatherAttributeIcon' alt='Wind icon'/>
                 <div className='weatherAttributeData'>
-                  <h3 className='weatherPercentage'>{Math.floor(info.wind.speed)} km/h</h3>
+                  <h3 className='weatherPercentage'>{convert_wind(info.wind.speed)} km/h</h3>
                   <p className='weatherAttributeSubtitle'>Wind Speed</p>
                 </div>
               </div>
