@@ -98,3 +98,19 @@
     font-size: 0.8em;
     color: rgba(255, 255, 255, 0.774);
 }
+div.footer{
+    display: flex;
+    position: absolute;
+    background-color: rgba(30, 0, 100, 0.212);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    left: 0;
+    bottom: 0;
+    color: white;
+}
+a{
+    text-decoration: none;
+    color: blue;
+}

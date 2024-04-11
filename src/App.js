@@ -9,7 +9,11 @@ import drizzle_icon from './Assets/drizzle.png'
 import rain_icon from './Assets/rain.png'
 import wind_icon from './Assets/wind.png'
 import humidity_icon from './Assets/humidity.png'
+import rainstorm_icon from './Assets/rainstorm.png'
+import fog_icon from './Assets/fog.png'
+import dust_icon from './Assets/dust.png'
 import interrogation_icon from './Assets/weather-interrogation.png'
+
 
 
 function App() {
@@ -21,7 +25,7 @@ function App() {
   function convert_temp (a) {
     return Math.floor(a - 273.15)
   }
-
+  // MS / to KM/H 
   function convert_wind (a) {
     return Math.floor(a * 3.6)
   }
@@ -36,21 +40,26 @@ function App() {
     try {
       var response = await api.get(`weather?q=${input}&appid=8690c0d1a638967660a3539ad9d30d92`)
       console.log(response.data)
-      console.log(response)
       setInfo(response.data)
       // Weather Status to show icon 
       const weather_status = response.data.weather[0].main
-      if (weather_status === 'Cloud') {setweather_icon(cloud_icon)}
+      if (weather_status === 'Clouds') {setweather_icon(cloud_icon)}
       else if (weather_status === 'Rain') {setweather_icon(rain_icon)}
       else if (weather_status === 'Drizzle') {setweather_icon(drizzle_icon)}
       else if (weather_status === 'Snow') {setweather_icon(snow_icon)}
       else if (weather_status === 'Clear') {setweather_icon(clear_icon)}
+      // Compost Weather Status icons 
+      else if ('Thunderstorm Squall'.includes(weather_status)) {setweather_icon(rainstorm_icon)}
+      else if ('Haze Mist Fog Tornado'.includes(weather_status)) {setweather_icon(fog_icon)}
+      else if ('Ash Smoke Dust Sand'.includes(weather_status)) {setweather_icon(dust_icon)}
+      else {setweather_icon(interrogation_icon)}
     }
     catch (error) {
       alert("Ops error while searching")
       console.error('The following error ocurred: ', error)
     }
   }
+
   return (
     <div className="App">
       <div className='container'>
@@ -99,8 +108,16 @@ function App() {
           </main>
         )
         }
-
       </div>
+        <div className='footer'>
+          <footer className='credits'>
+            Icon Credits: 
+            <a href="http://icons8.com/icons"> dust_icon </a>
+            <a href="https://www.flaticon.com"> Other_icons </a>
+            <a href="https://br.freepik.com/icone/nevoa_8675066#fromView=search&page=1&position=11&uuid=2d0cf332-bc5d-4b97-9e2e-e6f22971232a"> fog_icon </a>
+            
+          </footer>
+        </div>
     </div>
   );
 }
